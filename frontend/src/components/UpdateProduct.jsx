@@ -50,8 +50,6 @@ const UpdateProduct = () => {
         console.warn(result);
         navigate('/');
 
-
-
     }
 
     return (

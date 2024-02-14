@@ -24,7 +24,7 @@ const AddProduct = () => {
             }
         });
         result = await result.json();
-        console.warn(result);
+        console.log(result);
     }
 
     return (

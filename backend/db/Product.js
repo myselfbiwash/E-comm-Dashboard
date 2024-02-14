@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema({
     category:String,
     company:String,
     userId: ObjectId,
+    number: Number,
 
 });
 

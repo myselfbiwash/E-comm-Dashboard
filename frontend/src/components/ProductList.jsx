@@ -18,6 +18,7 @@ const ProductList = () => {
     });
     result = await result.json();
     setProducts(result);
+    console.log("Result is here:",result);
   };
 
   const addToCart = (product) => {
@@ -95,6 +96,7 @@ const ProductList = () => {
 
       {products.length > 0 ? (
         products.map((item, index) => (
+          console.log(item), // Add console.log here
           <ul key={item._id}>
             <li>{index + 1}</li>
             <li>{item.name}</li>
