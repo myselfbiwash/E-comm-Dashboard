@@ -65,6 +65,13 @@ const ProductList = () => {
     }
   };
 
+  const deleteFromCart = (id) => {
+    const updatedCartItems = cartItems.filter((item) => item._id !== id);
+    setCartItems(updatedCartItems);
+    calculateTotalAmount(updatedCartItems);
+  };
+
+  
   const deleteProduct = async (id)=>{
     let result = await fetch(`http://127.0.0.1:5000/product/${id}`,{
         method:"Delete",
@@ -76,6 +83,7 @@ const ProductList = () => {
     result = await result.json();
     if(result)
     {
+        deleteFromCart(id);
         getProducts();
     }
 };
@@ -100,7 +108,6 @@ const ProductList = () => {
 
       {products.length > 0 ? (
         products.map((item, index) => (
-          console.log(item), // Add console.log here
           <ul key={item._id}>
             <li>{index + 1}</li>
             <li>{item.name}</li>
