@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-require("./db/config");
-const User = require("./db/User");
-const Product = require("./db/Product");
+require("./models/config");
+const User = require("./models/User");
+const Product = require("./models/Product");
 const {
   handleUserRegistration,
   handleLogin,
@@ -18,14 +18,15 @@ const {
 
 } = require("./controllers/controller");
 
+require("dotenv").config();
 const Jwt = require("jsonwebtoken");
-const jwtKey = "biwash10";
+const jwtKey = process.env.JWT_KEY;
 const app = express();
 
 const { verifyToken } = require("./middleware/TokenVerification");
 
 //const cors = require('cors');
-const Transaction = require("./db/transactionConfig");
+const Transaction = require("./models/transactionConfig");
 
 const axios = require("axios");
 
@@ -37,11 +38,6 @@ app.post("/register", handleUserRegistration);
 app.post("/login", handleLogin);
 
 app.post("/add-product", verifyToken, handleAddProduct);
-// app.get("/add-product", async (req, resp)=>{
-//   let result = await Product.find();
-//   console.warn(result);
-//   resp.send(result);
-// })
 
 app.get("/products", verifyToken, handleGetProduct);
 

@@ -1,6 +1,6 @@
-const User = require("./db/User");
-const Product = require("./db/Product");
-const Transaction = require('./db/transactionConfig');
+const User = require("../models/User");
+const Product = require("../models/Product");
+const Transaction = require('../models/transactionConfig');
 
 
 const Jwt = require("jsonwebtoken");
