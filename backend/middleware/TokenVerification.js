@@ -1,5 +1,5 @@
 const Jwt = require("jsonwebtoken");
-const jwtKey = 'biwash10';
+const jwtKey = process.env.JWT_KEY;
 
 function verifyToken(req, resp, next) {
     let token = req.headers['authorization'];

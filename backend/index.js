@@ -1,8 +1,12 @@
 const express = require("express");
 const cors = require("cors");
+
 require("./models/config");
 const User = require("./models/User");
 const Product = require("./models/Product");
+
+const productRouter = require("./routes/route");
+
 const {
   handleUserRegistration,
   handleLogin,
@@ -20,7 +24,6 @@ const {
 
 require("dotenv").config();
 const Jwt = require("jsonwebtoken");
-const jwtKey = process.env.JWT_KEY;
 const app = express();
 
 const { verifyToken } = require("./middleware/TokenVerification");
@@ -41,11 +44,14 @@ app.post("/add-product", verifyToken, handleAddProduct);
 
 app.get("/products", verifyToken, handleGetProduct);
 
-app.delete("/product/:id", verifyToken, handleDeleteProduct);
+// app.delete("/product/:id", verifyToken, handleDeleteProduct);
 
-app.get("/product/:id", verifyToken, handleGetOneProduct);
+// app.get("/product/:id", verifyToken, handleGetOneProduct);
 
-app.put("/product/:id", verifyToken, handleUpdateProduct);
+// app.put("/product/:id", verifyToken, handleUpdateProduct);
+
+app.use("/product", productRouter);
+
 
 app.get("/search/:key", verifyToken, handleSearchProduct);
 

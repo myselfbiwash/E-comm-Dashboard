@@ -4,7 +4,7 @@ const Transaction = require('../models/transactionConfig');
 
 
 const Jwt = require("jsonwebtoken");
-const jwtKey = 'biwash10';
+const jwtKey = process.env.JWT_KEY;
 
 async function handleUserRegistration(req, res) {
     let user = new User(req.body);
