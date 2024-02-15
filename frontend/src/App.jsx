@@ -11,10 +11,10 @@ import UpdateProduct from './components/UpdateProduct';
 import { useState } from 'react';
 //import EsewaForm from './components/eSewaForm';
 // import { useState } from 'react';
-// import PaymentForm from "./components/eSewaForm";
-// import SuccessPage from "./components/SuccessPage";
-// import FailurePage from "./components/FailurePage";
-// import EsewaPage from './components/eSewaPage';
+import PaymentForm from "./components/eSewaForm";
+import SuccessPage from "./components/SuccessPage";
+import FailurePage from "./components/FailurePage";
+import EsewaPage from './components/eSewaPage';
 
 function App() {
 
@@ -29,10 +29,10 @@ function App() {
             <Route path="/update/:id" element={<UpdateProduct />} />
             <Route path="/logout" element={<h1>Logout Component</h1>} />
             <Route path="/profile" element={<h1>Profile Component</h1>} />
-            {/* <Route path="/pay" element={<PaymentForm />} />
+            <Route path="/pay" element={<PaymentForm />} />
             <Route path="/payment/success" element={<SuccessPage />} />
             <Route path="/payment/failure" element={<FailurePage />} />
-            <Route path="/payment" element={<EsewaPage />} /> */}
+            <Route path="/payment" element={<EsewaPage />} />
 
           </Route>
           <Route path="/signup" element={<SignUp />} />
