@@ -2,8 +2,6 @@ const express = require("express");
 const cors = require("cors");
 
 require("./models/config");
-const User = require("./models/User");
-const Product = require("./models/Product");
 
 const productRouter = require("./routes/route");
 
@@ -23,7 +21,6 @@ const {
 } = require("./controllers/controller");
 
 require("dotenv").config();
-const Jwt = require("jsonwebtoken");
 const app = express();
 
 const { verifyToken } = require("./middleware/TokenVerification");
