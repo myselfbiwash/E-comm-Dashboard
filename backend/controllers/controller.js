@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const Product = require("../models/Product");
 const Transaction = require('../models/transactionConfig');
+require("dotenv").config();
 
 
 const Jwt = require("jsonwebtoken");
@@ -26,7 +27,7 @@ async function handleUserRegistration(req, res) {
         if (user) {
           Jwt.sign({ user }, jwtKey, { expiresIn: '6h' }, (err, token) => {
             if (err) {
-              res.send({ result: "Something went wrong.. Please try again later!" })
+              return res.send({ result: "Something went wrong.. Please try again later!" })
             }
             res.send({ user, auth: token });
           })
