@@ -11,9 +11,8 @@ const Login =()=>{
             navigate("/")
         }
     }, [])
-    const handleLogin= async()=>{
 
-        //console.warn(email,password);
+    const handleLogin= async()=>{
         let result = await fetch('http://127.0.0.1:5000/login', {
             method: 'post',
             body: JSON.stringify({ email, password}),
@@ -22,7 +21,7 @@ const Login =()=>{
             }  
         });
         result = await result.json();
-        console.warn(result);
+        console.log("Login Result:",result);
         if(result.auth){
             localStorage.setItem("user", JSON.stringify(result.user));
             localStorage.setItem("token", JSON.stringify(result.auth));

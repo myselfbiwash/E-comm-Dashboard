@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 
 import { useLocation } from "react-router-dom";
-const apiUrl = import.meta.env.VITE_API_URL;
-
+const apiUrl = import.meta.env.VITE_API_URL|| "http://localhost:5173";
+ 
 const EsewaPage =() =>{
 
   const location = useLocation();
