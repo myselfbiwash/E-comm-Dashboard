@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 const ProductList = () => {
+  const navigate = useNavigate();
+
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -87,6 +89,21 @@ const ProductList = () => {
         getProducts();
     }
 };
+const handleSubmit = async () => {
+  //e.preventDefault();    // is called to prevent the default form submission behavior of the browser, which would cause a page reload.
+
+  try {
+    // Redirect the user to the eSewa login page
+    const state = {
+      pid: cartItems,
+      tAmt: totalAmount,
+      amt: totalAmount
+    };
+    navigate("/payment", { state });
+  } catch (error) {
+    console.log("Error initiating payment:", error);
+  }
+};
 
   return (
     <div className="product-list">
@@ -146,6 +163,7 @@ const ProductList = () => {
       <div className="total-amount">
         <h3>Total Amount: ${totalAmount}</h3>
       </div>
+      <button onClick={handleSubmit} >Pay with eSewa</button>
     </div>
   );
 };

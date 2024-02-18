@@ -7,7 +7,7 @@ const PaymentForm = () => {
   const [amount, setAmount] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();    // is called to prevent the default form submission behavior of the browser, which would cause a page reload.
 
     try {
       // Redirect the user to the eSewa login page
