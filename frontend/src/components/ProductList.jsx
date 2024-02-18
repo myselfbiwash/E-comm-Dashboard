@@ -95,7 +95,7 @@ const handleSubmit = async () => {
   try {
     // Redirect the user to the eSewa login page
     const state = {
-      pid: cartItems,
+      pid: 5,
       tAmt: totalAmount,
       amt: totalAmount
     };
