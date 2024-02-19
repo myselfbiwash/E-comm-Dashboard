@@ -1,7 +1,9 @@
 const User = require("../models/User");
 const Product = require("../models/Product");
 const Transaction = require('../models/transactionConfig');
+const Cart = require('../models/Cart');
 require("dotenv").config();
+const { v4: uuidv4 } = require('uuid');
 
 
 const Jwt = require("jsonwebtoken");
@@ -15,9 +17,9 @@ async function handleUserRegistration(req, res) {
   delete result.password;
   Jwt.sign({ result }, jwtKey, { expiresIn: '6h' }, (err, token) => {
     if (err) {
-      res.send({ result: "Something went wrong.. Please try again later!" })
+      return res.send({ result: "Something went wrong.. Please try again later from registration!" })
     }
-    res.send({ result, auth: token });
+     res.send({ result, auth: token });
   })
   }
 
@@ -27,7 +29,8 @@ async function handleUserRegistration(req, res) {
         if (user) {
           Jwt.sign({ user }, jwtKey, { expiresIn: '6h' }, (err, token) => {
             if (err) {
-              return res.send({ result: "Something went wrong.. Please try again later!" })
+              console.log("Error from login jwt sign: ", err);
+              return res.send({ result: "Something went wrong.. Please try again later from login!" })
             }
             res.send({ user, auth: token });
           })
@@ -43,7 +46,10 @@ async function handleUserRegistration(req, res) {
 
   
   async function handleAddProduct(req, res) {
-    let product = new Product(req.body);
+    let product = new Product({
+      ...req.body,
+      pid: uuidv4(), // Generate a unique pid
+    });
     let result = await product.save();
     console.log(req.body);
     res.send(result);
@@ -95,6 +101,22 @@ async function handleUserRegistration(req, res) {
     });
     res.send(result);
   }
+
+  
+async function handleAddCart(req, res) {
+  console.log("🚀 ~ handleAddCart ~ req.body:", req.body)
+  const { cartPid, userId, productIds, totalAmount } = req.body;
+
+  let cart = new Cart({
+    cartPid,
+    userId,
+    productIds,
+    totalAmount,
+  });
+
+  let result = await cart.save();
+  res.send(result);
+}
 
 
   async function handleInitiatePayment(req, res) {
@@ -174,5 +196,6 @@ async function handleUserRegistration(req, res) {
     handleSearchProduct,
     handleInitiatePayment,
     handleSuccessfulPayment,
-    handleFailurePayment
+    handleFailurePayment,
+    handleAddCart
   }

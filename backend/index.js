@@ -17,6 +17,7 @@ const {
   handleInitiatePayment,
   handleSuccessfulPayment,
   handleFailurePayment,
+  handleAddCart,
 
 } = require("./controllers/controller");
 
@@ -40,6 +41,7 @@ app.post("/login", handleLogin);
 app.post("/add-product", verifyToken, handleAddProduct);
 
 app.get("/products", verifyToken, handleGetProduct);
+app.post("/carts", handleAddCart);
 
 // app.delete("/product/:id", verifyToken, handleDeleteProduct);
 

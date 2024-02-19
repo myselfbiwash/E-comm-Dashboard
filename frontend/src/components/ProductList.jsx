@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 const ProductList = () => {
   const navigate = useNavigate();
@@ -89,13 +90,35 @@ const ProductList = () => {
         getProducts();
     }
 };
-const handleSubmit = async () => {
-  //e.preventDefault();    // is called to prevent the default form submission behavior of the browser, which would cause a page reload.
+const handleSubmit = async (prodId) => {
+  const cartPid = uuidv4();
 
   try {
+
+    const currentUserId = JSON.parse(localStorage.getItem('user'))._id;
+
+
+    // Create the cart on the backend
+    const response = await fetch('http://localhost:5000/carts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        cartPid,
+        userId: currentUserId, 
+        productIds: prodId,
+        totalAmount: totalAmount,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to create cart');
+    }
+
     // Redirect the user to the eSewa login page
     const state = {
-      pid: 5,
+      pid: cartPid,
       tAmt: totalAmount,
       amt: totalAmount
     };
@@ -150,6 +173,7 @@ const handleSubmit = async () => {
             {cartItems.map((item, index) => (
               <li key={index}>
                 {item.name}{' '}
+                {item.pid}{' '}
                 <button onClick={() => removeFromCart(index)}>Remove</button>
               </li>
             ))}
@@ -163,7 +187,7 @@ const handleSubmit = async () => {
       <div className="total-amount">
         <h3>Total Amount: ${totalAmount}</h3>
       </div>
-      <button onClick={handleSubmit} >Pay with eSewa</button>
+      <button onClick={() => handleSubmit(cartItems.map(item=>item.pid))} >Pay with eSewa</button>
     </div>
   );
 };
