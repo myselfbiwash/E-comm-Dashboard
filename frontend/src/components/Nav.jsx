@@ -1,7 +1,10 @@
-import React  from "react";
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import ProductList from './ProductList'; 
 
 const Nav=()=>{
+    const [showProductList, setShowProductList] = useState(false);
+
     const auth = localStorage.getItem('user');
     const navigate = useNavigate();
     const logout =()=>{
@@ -11,7 +14,11 @@ const Nav=()=>{
 
     return(
         <div>
-            <img src="https://w7.pngwing.com/pngs/621/196/png-transparent-e-commerce-logo-logo-e-commerce-electronic-business-ecommerce-angle-text-service.png" alt="logo" className="logo" />
+            <img src="https://w7.pngwing.com/pngs/621/196/png-transparent-e-commerce-logo-logo-e-commerce-electronic-business-ecommerce-angle-text-service.png" 
+            alt="logo" 
+            className="logo" 
+             onClick={() => setShowProductList(true)}/>
+             {showProductList && <ProductList />}
             { auth ?<ul className="nav-ul">
                 <li><Link to="/">Products</Link></li>
                 <li><Link to="/add">Add Product</Link></li>

@@ -40,7 +40,7 @@ app.post("/login", handleLogin);
 
 app.post("/add-product", verifyToken, handleAddProduct);
 
-app.get("/products", verifyToken, handleGetProduct);
+app.get("/products", handleGetProduct);
 app.post("/carts", handleAddCart);
 
 // app.delete("/product/:id", verifyToken, handleDeleteProduct);
