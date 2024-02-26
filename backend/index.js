@@ -5,6 +5,7 @@ require("./models/config");
 
 const productRouter = require("./routes/route");
 
+
 const {
   handleUserRegistration,
   handleLogin,
@@ -25,6 +26,7 @@ require("dotenv").config();
 const app = express();
 
 const { verifyToken } = require("./middleware/TokenVerification");
+const {upload} = require("./middleware/Multer");
 
 //const cors = require('cors');
 const Transaction = require("./models/transactionConfig");
@@ -33,12 +35,13 @@ const axios = require("axios");
 
 app.use(express.json());
 app.use(cors());
+app.use('/uploads', express.static('uploads'));
 
 app.post("/register", handleUserRegistration);
 
 app.post("/login", handleLogin);
 
-app.post("/add-product", verifyToken, handleAddProduct);
+app.post("/add-product", verifyToken,upload.single('photo'), handleAddProduct);
 
 app.get("/products", handleGetProduct);
 app.post("/carts", handleAddCart);

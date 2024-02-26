@@ -6,20 +6,31 @@ const AddProduct = () => {
     const [category, setCategory] = React.useState('');
     const [company, setCompany] = React.useState('');
     const [number, setNumber] = React.useState('');
+    const [photo, setPhoto] = React.useState(null);
     const [error, setError] = React.useState(false);
 
-    const addProduct = async () => {
-        if (!name || !price || !category || !company || !number) {
+    const addProduct = async (event) => {
+        event.preventDefault();
+        if (!name || !price || !category || !company || !number || !photo) {
             setError(true);
             return false;
         }
         const userId = JSON.parse(localStorage.getItem('user'))._id;
         const token = JSON.parse(localStorage.getItem('token'));
+
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('category', category);
+        formData.append('company', company);
+        formData.append('number', number);
+        formData.append('userId', userId);
+        formData.append('photo', photo);
+
         let result = await fetch("http://127.0.0.1:5000/add-product", {
             method: 'post',
-            body: JSON.stringify({ name, price, category, company, number, userId }),
+            body: formData,
             headers: {
-                "Content-type": "application/json",
                 "Authorization": `Bearer ${token}`
             }
         });
@@ -27,8 +38,12 @@ const AddProduct = () => {
         console.log(result);
     }
 
+    const handleFileChange = (e) => {
+        setPhoto(e.target.files[0]);
+    }
+
     return (
-        <div className='product'>
+        <form className='product' onSubmit={addProduct} encType='multipart/form-data'>
             <h1>Add Product</h1>
             <input type="text" placeholder='Enter Product Name' className='inputBox'
                 onChange={(e) => { setName(e.target.value) }} value={name} />
@@ -50,8 +65,10 @@ const AddProduct = () => {
                 onChange={(e) => { setNumber(e.target.value) }} value={number} />
             {error && !number && <span className='invalid-input'>Enter valid number</span>}
 
-            <button className='appButton' onClick={addProduct}>Add Product</button>
-        </div>
+            <input type="file" className='inputBox' onChange={handleFileChange} /> <br />
+
+            <button type='submit' className='appButton'>Add Product</button>
+        </form>
     )
 }
 

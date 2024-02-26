@@ -46,13 +46,19 @@ async function handleUserRegistration(req, res) {
 
   
   async function handleAddProduct(req, res) {
-    let product = new Product({
-      ...req.body,
-      pid: uuidv4(), // Generate a unique pid
-    });
-    let result = await product.save();
-    console.log(req.body);
-    res.send(result);
+    try {
+      let product = new Product({
+        ...req.body,
+        pid: uuidv4(), // Generate a unique pid
+        photo: req.file.filename,
+      });
+      let result = await product.save();
+      console.log(req.body);
+      res.send(result);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('An error occurred while adding the product.');
+    }
   }
 
   async function handleGetProduct(req, res) {

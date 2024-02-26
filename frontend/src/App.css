@@ -131,3 +131,8 @@ button:hover {
     transform: rotate(360deg);
   }
 }
+
+.product-list ul li img {
+  width: 100px; /* Adjust as needed */
+  height: auto; /* Maintain aspect ratio */
+}

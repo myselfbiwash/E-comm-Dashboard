@@ -8,6 +8,7 @@ const productSchema = new mongoose.Schema({
     company:String,
     userId: ObjectId,
     number: Number,
+    photo: String,
     pid: {
         type: String,
         required: true,
