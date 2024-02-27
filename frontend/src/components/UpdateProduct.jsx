@@ -12,6 +12,8 @@ const UpdateProduct = () => {
     const [company, setCompany] = React.useState('');
     const [number, setNumber] = React.useState('');
     const [error, setError] = React.useState(false);
+    const [photo, setPhoto] = React.useState(null);
+
     const params = useParams();
     const navigate = useNavigate();
 
@@ -35,10 +37,19 @@ const UpdateProduct = () => {
     }
 
     const updateProduct = async () => {
-        console.warn(name, price, category, company);
+        console.warn(name, price, category, company,photo);
+
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('category', category);
+        formData.append('company', company);
+        formData.append('number', number);
+        formData.append('userId', userId);
+        formData.append('photo', photo);
         let result = await fetch(`http://localhost:5000/product/${params.id}`, {
             method: 'Put',
-            body: JSON.stringify({ name, price, category, company, number }),
+            body: formData,
             headers: {
                 'Content-Type': "application/json",
                 authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
@@ -53,7 +64,7 @@ const UpdateProduct = () => {
     }
 
     return (
-        <div className='product'>
+        <form className='product' onSubmit={updateProduct} encType='multipart/form-data'>
             <h1>Update Product</h1>
             <input type="text" placeholder='Enter Product Name' className='inputBox'
                 onChange={(e) => { setName(e.target.value) }} value={name} />
@@ -71,11 +82,13 @@ const UpdateProduct = () => {
 
             <input type="number" placeholder='Enter No. of Products' className='inputBox'
                 onChange={(e) => { setNumber(e.target.value) }} value={number} />
+            
+            <input type="file" className='inputBox' onChange={(e) => { setPhoto(e.target.files[0]) }} />
 
 
-            <button className='appButton' onClick={updateProduct}>Update Product</button>
+            <button type='submit' className='appButton' >Update Product</button>
 
-        </div>
+        </form>
     )
 }
 
