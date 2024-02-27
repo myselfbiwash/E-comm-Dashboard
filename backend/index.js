@@ -46,7 +46,7 @@ app.post(
 );
 
 app.get("/api/products", handleGetProduct);
-app.post("/api/carts", handleAddCart);
+app.post("/api/carts", verifyToken, handleAddCart);
 
 // app.delete("/product/:id", verifyToken, handleDeleteProduct);
 
