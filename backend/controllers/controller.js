@@ -113,7 +113,8 @@ async function handleUserRegistration(req, res) {
   
 async function handleAddCart(req, res) {
   console.log("🚀 ~ handleAddCart ~ req.body:", req.body)
-  const { cartPid, userId, productIds, totalAmount } = req.body;
+  const userId = req.user._id;
+  const { cartPid, productIds, totalAmount } = req.body;
 
   let cart = new Cart({
     cartPid,
