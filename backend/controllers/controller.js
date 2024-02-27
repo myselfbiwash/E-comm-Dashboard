@@ -89,12 +89,17 @@ async function handleUserRegistration(req, res) {
   }
 
   async function handleUpdateProduct(req, res) {
+    console.log("🚀 ~ handleUpdateProduct ~ req.body", req.body)
+    const old = await Product.findOne({ _id: req.params.id });
     let result = await Product.updateOne(
       { _id: req.params.id },
       {
-        $set: req.body
+        $set: { ...req.body, photo: req.file.filename },
       }
     )
+    if (old.photo) {
+      fs.unlinkSync(path.join(__dirname, `../uploads/${old.photo}`));
+    }
     res.send(result);
   }
 

@@ -48,7 +48,7 @@ const UpdateProduct = () => {
     const updateProduct = async (e) => {
         e.preventDefault();
         console.warn(name, price, category, company);
-        let result = await fetch("/api/update-product/" + params.id, {
+        let result = await fetch("/api/product/" + params.id, {
             method: 'put',
             body: formData,
             headers: {
