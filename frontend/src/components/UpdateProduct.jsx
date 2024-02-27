@@ -24,7 +24,7 @@ const UpdateProduct = () => {
 
     const getProductDetails = async () => {
         console.warn(params);
-        let result = await fetch(`http://localhost:5000/product/${params.id}`, {
+        let result = await fetch(`api/product/${params.id}`, {
             headers: {
                 authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
             }
@@ -47,7 +47,7 @@ const UpdateProduct = () => {
         formData.append('number', number);
         formData.append('userId', userId);
         formData.append('photo', photo);
-        let result = await fetch(`http://localhost:5000/product/${params.id}`, {
+        let result = await fetch(`api/product/${params.id}`, {
             method: 'Put',
             body: formData,
             headers: {

@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const User = require("../models/User");
 const Product = require("../models/Product");
 const Transaction = require('../models/transactionConfig');

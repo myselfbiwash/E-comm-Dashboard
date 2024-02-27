@@ -39,8 +39,8 @@ const EsewaPage =() =>{
                   <input value="0" name="pdc" type="hidden" />
                   <input value="EPAYTEST" name="scd" type="hidden" />
                   <input value={pid} name="pid" type="hidden" />
-                  {/* <input value= "http://localhost:5000/payment/success" type="hidden" name="su" />
-                  <input value="http://localhost:5000/payment/failed" type="hidden" name="fu" />    */}
+                  {/* <input value= "/payment/success" type="hidden" name="su" />
+                  <input value="api/payment/failed" type="hidden" name="fu" />    */}
                   <input value= { apiUrl+"/payment/success"} type="hidden" name="su" />
                   <input value={ apiUrl+"/payment/failed"} type="hidden" name="fu" />                
                 </form>

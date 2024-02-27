@@ -14,7 +14,7 @@ const ProductList = () => {
   }, []);
 
   const getProducts = async () => {
-    let result = await fetch("http://127.0.0.1:5000/products", {
+    let result = await fetch("api/products", {
       headers: {
         authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
       },
@@ -54,7 +54,7 @@ const ProductList = () => {
   const searchHandle = async (event) => {
     let key = event.target.value;
     if (key) {
-      let result = await fetch(`http://127.0.0.1:5000/search/${key}`, {
+      let result = await fetch(`api/search/${key}`, {
         headers: {
           authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
         },
@@ -75,7 +75,7 @@ const ProductList = () => {
   };
 
   const deleteProduct = async (id) => {
-    let result = await fetch(`http://127.0.0.1:5000/product/${id}`, {
+    let result = await fetch(`api/product/${id}`, {
       method: "Delete",
       headers: {
         authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -94,7 +94,7 @@ const ProductList = () => {
       const currentUserId = JSON.parse(localStorage.getItem("user"))._id;
 
       // Create the cart on the backend
-      const response = await fetch("http://localhost:5000/carts", {
+      const response = await fetch("api/carts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -158,7 +158,7 @@ const ProductList = () => {
             <li>
               {" "}
               <img
-                src={`http://127.0.0.1:5000/uploads/${item.photo}`}
+                src={`api/uploads/${item.photo}`}
                 alt={item.name}
               />
             </li>

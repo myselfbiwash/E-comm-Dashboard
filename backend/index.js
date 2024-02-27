@@ -1,10 +1,11 @@
 const express = require("express");
 const cors = require("cors");
+const morgan = require("morgan");
+require("dotenv").config();
 
 require("./models/config");
 
 const productRouter = require("./routes/route");
-
 
 const {
   handleUserRegistration,
@@ -19,32 +20,33 @@ const {
   handleSuccessfulPayment,
   handleFailurePayment,
   handleAddCart,
-
 } = require("./controllers/controller");
 
-require("dotenv").config();
 const app = express();
 
 const { verifyToken } = require("./middleware/TokenVerification");
-const {upload} = require("./middleware/Multer");
+const { upload } = require("./middleware/Multer");
+app.use(morgan("dev"));
 
 //const cors = require('cors');
-const Transaction = require("./models/transactionConfig");
-
-const axios = require("axios");
 
 app.use(express.json());
 app.use(cors());
-app.use('/uploads', express.static('uploads'));
+app.use("/api/uploads", express.static("uploads"));
 
-app.post("/register", handleUserRegistration);
+app.post("/api/register", handleUserRegistration);
 
-app.post("/login", handleLogin);
+app.post("/api/login", handleLogin);
 
-app.post("/add-product", verifyToken,upload.single('photo'), handleAddProduct);
+app.post(
+  "/api/add-product",
+  verifyToken,
+  upload.single("photo"),
+  handleAddProduct
+);
 
-app.get("/products", handleGetProduct);
-app.post("/carts", handleAddCart);
+app.get("/api/products", handleGetProduct);
+app.post("/api/carts", handleAddCart);
 
 // app.delete("/product/:id", verifyToken, handleDeleteProduct);
 
@@ -52,21 +54,19 @@ app.post("/carts", handleAddCart);
 
 // app.put("/product/:id", verifyToken, handleUpdateProduct);
 
-app.use("/product", productRouter);
+app.use("/api/product", productRouter);
 
-
-app.get("/search/:key", verifyToken, handleSearchProduct);
+app.get("/api/search/:key", verifyToken, handleSearchProduct);
 
 // Route to initiate payment
 
-app.post("/payment/initiate", verifyToken, handleInitiatePayment);
-
+app.post("/api/payment/initiate", verifyToken, handleInitiatePayment);
 
 // Route to capture payment success
-app.post("/payment/success", verifyToken, handleSuccessfulPayment);
+app.post("/api/payment/success", verifyToken, handleSuccessfulPayment);
 
 // Route to capture payment failure
-app.post("/payment/failure", verifyToken, handleFailurePayment);
+app.post("/api/payment/failure", verifyToken, handleFailurePayment);
 
 app.listen(5000, () => {
   console.log("Server is running on port 5000");

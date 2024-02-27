@@ -27,7 +27,7 @@ const AddProduct = () => {
         formData.append('userId', userId);
         formData.append('photo', photo);
 
-        let result = await fetch("http://127.0.0.1:5000/add-product", {
+        let result = await fetch("api/add-product", {
             method: 'post',
             body: formData,
             headers: {

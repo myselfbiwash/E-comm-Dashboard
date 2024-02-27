@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/Product");
+const {upload} = require("../middleware/Multer");
 
 const {
     handleDeleteProduct,
@@ -8,6 +9,6 @@ const {
     handleUpdateProduct,
 } = require("../controllers/controller");
 
-router.route("/:id").get(handleGetOneProduct).put(handleUpdateProduct).delete(handleDeleteProduct);
+router.route("/:id").get(handleGetOneProduct).put(upload.single('photo'),handleUpdateProduct).delete(handleDeleteProduct);
 
 module.exports = router;
