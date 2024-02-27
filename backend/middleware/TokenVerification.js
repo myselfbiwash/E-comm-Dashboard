@@ -10,6 +10,9 @@ function verifyToken(req, resp, next) {
           resp.status(401).send({ result: 'Please provide valid token' });
   
         } else {
+          const decoded = Jwt.decode(token);
+          const user = decoded.user;
+          req.user = user;
           next();
         }
       })
