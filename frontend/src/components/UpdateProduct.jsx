@@ -22,7 +22,7 @@ const UpdateProduct = () => {
 
     const getProductDetails = async () => {
         console.warn(params);
-        let result = await fetch(`http://localhost:5000/api/product/${params.id}`, {
+        let result = await fetch(`/api/product/${params.id}`, {
             headers: {
                 authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
             }
@@ -37,7 +37,7 @@ const UpdateProduct = () => {
     const updateProduct = async (e) => {
         e.preventDefault();
         console.warn(name, price, category, company);
-        let result = await fetch(`http://localhost:5000/api/product/${params.id}`, {
+        let result = await fetch(`/api/product/${params.id}`, {
             method: 'Put',
             body: JSON.stringify({ name, price, category, company, number }),
             headers: {
