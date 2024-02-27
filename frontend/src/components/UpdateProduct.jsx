@@ -12,8 +12,6 @@ const UpdateProduct = () => {
     const [company, setCompany] = React.useState('');
     const [number, setNumber] = React.useState('');
     const [error, setError] = React.useState(false);
-    const [photo, setPhoto] = React.useState(null);
-
     const params = useParams();
     const navigate = useNavigate();
 
@@ -24,7 +22,7 @@ const UpdateProduct = () => {
 
     const getProductDetails = async () => {
         console.warn(params);
-        let result = await fetch(`api/product/${params.id}`, {
+        let result = await fetch(`http://localhost:5000/api/product/${params.id}`, {
             headers: {
                 authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
             }
@@ -36,20 +34,12 @@ const UpdateProduct = () => {
         setCompany(result.company);
     }
 
-    const updateProduct = async () => {
-        console.warn(name, price, category, company,photo);
-
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('price', price);
-        formData.append('category', category);
-        formData.append('company', company);
-        formData.append('number', number);
-        formData.append('userId', userId);
-        formData.append('photo', photo);
-        let result = await fetch(`api/product/${params.id}`, {
+    const updateProduct = async (e) => {
+        e.preventDefault();
+        console.warn(name, price, category, company);
+        let result = await fetch(`http://localhost:5000/api/product/${params.id}`, {
             method: 'Put',
-            body: formData,
+            body: JSON.stringify({ name, price, category, company, number }),
             headers: {
                 'Content-Type': "application/json",
                 authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
@@ -64,7 +54,7 @@ const UpdateProduct = () => {
     }
 
     return (
-        <form className='product' onSubmit={updateProduct} encType='multipart/form-data'>
+        <div className='product'>
             <h1>Update Product</h1>
             <input type="text" placeholder='Enter Product Name' className='inputBox'
                 onChange={(e) => { setName(e.target.value) }} value={name} />
@@ -82,13 +72,11 @@ const UpdateProduct = () => {
 
             <input type="number" placeholder='Enter No. of Products' className='inputBox'
                 onChange={(e) => { setNumber(e.target.value) }} value={number} />
-            
-            <input type="file" className='inputBox' onChange={(e) => { setPhoto(e.target.files[0]) }} />
 
 
-            <button type='submit' className='appButton' >Update Product</button>
+            <button className='appButton' onClick={updateProduct}>Update Product</button>
 
-        </form>
+        </div>
     )
 }
 
