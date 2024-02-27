@@ -12,6 +12,7 @@ const UpdateProduct = () => {
     const [company, setCompany] = React.useState('');
     const [number, setNumber] = React.useState('');
     const [error, setError] = React.useState(false);
+    const [photo, setPhoto] = React.useState(null);
     const params = useParams();
     const navigate = useNavigate();
 
@@ -32,18 +33,26 @@ const UpdateProduct = () => {
         setPrice(result.price);
         setCategory(result.category);
         setCompany(result.company);
+        setNumber(result.number);
+        setPhoto(result.photo);
     }
+
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('price', price);
+    formData.append('category', category);
+    formData.append('company', company);
+    formData.append('number', number);
+    formData.append('photo', photo);
 
     const updateProduct = async (e) => {
         e.preventDefault();
         console.warn(name, price, category, company);
-        let result = await fetch(`/api/product/${params.id}`, {
-            method: 'Put',
-            body: JSON.stringify({ name, price, category, company, number }),
+        let result = await fetch("/api/update-product/" + params.id, {
+            method: 'put',
+            body: formData,
             headers: {
-                'Content-Type': "application/json",
-                authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
-
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem('token'))}`
             }
         });
 
@@ -53,30 +62,38 @@ const UpdateProduct = () => {
 
     }
 
+    const handleFileChange = (e) => {
+        setPhoto(e.target.files[0]);
+    }
+
     return (
-        <div className='product'>
-            <h1>Update Product</h1>
-            <input type="text" placeholder='Enter Product Name' className='inputBox'
-                onChange={(e) => { setName(e.target.value) }} value={name} />
+        <form className='product' onSubmit={updateProduct} encType='multipart/form-data'>
+        <h1>Update Product</h1>
+        <input type="text" placeholder='Enter Product Name' className='inputBox'
+            onChange={(e) => { setName(e.target.value) }} value={name} />
+        {error && !name && <span className='invalid-input'>Enter valid name</span>}
 
+        <input type="text" placeholder='Enter Product Price' className='inputBox'
+            onChange={(e) => { setPrice(e.target.value) }} value={price} />
+        {error && !price && <span className='invalid-input'>Enter valid price</span>}
 
-            <input type="text" placeholder='Enter Product Price' className='inputBox'
-                onChange={(e) => { setPrice(e.target.value) }} value={price} />
+        <input type="text" placeholder='Enter Product Category' className='inputBox'
+            onChange={(e) => { setCategory(e.target.value) }} value={category} />
+        {error && !category && <span className='invalid-input'>Enter valid category</span>}
 
-            <input type="text" placeholder='Enter Product Category' className='inputBox'
-                onChange={(e) => { setCategory(e.target.value) }} value={category} />
+        <input type="text" placeholder='Enter Product Company' className='inputBox'
+            onChange={(e) => { setCompany(e.target.value) }} value={company} />
+        {error && !company && <span className='invalid-input'>Enter valid company</span>}
 
+        <input type="number" placeholder='Enter No. of Products' className='inputBox'
+            onChange={(e) => { setNumber(e.target.value) }} value={number} />
+        {error && !number && <span className='invalid-input'>Enter valid number</span>}
 
-            <input type="text" placeholder='Enter Product Company' className='inputBox'
-                onChange={(e) => { setCompany(e.target.value) }} value={company} />
+        { photo && <img src={"http://localhost:5000/api/uploads/" + photo} alt="Product" width="100" /> }
+        <input type="file" className='inputBox' onChange={handleFileChange} defaultValue={photo} /> <br />
 
-            <input type="number" placeholder='Enter No. of Products' className='inputBox'
-                onChange={(e) => { setNumber(e.target.value) }} value={number} />
-
-
-            <button className='appButton' onClick={updateProduct}>Update Product</button>
-
-        </div>
+        <button type='submit' className='appButton'>Update Product</button>
+    </form>
     )
 }
 
