@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import "./ProductList.css";
 
 const ProductList = () => {
   const navigate = useNavigate();

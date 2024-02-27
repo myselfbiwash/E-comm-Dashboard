@@ -1,0 +1,144 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.product-list {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+}
+
+.product-list h3 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.search-product-box {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.product-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.product-list ul li {
+  color: #333;
+}
+
+.product-list button {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.product-list button:hover {
+  background-color: #0056b3;
+}
+
+.cart-items, .total-amount {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.cart-items h3, .total-amount h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.cart-items ul, .total-amount ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.cart-items ul li, .total-amount ul li {
+  margin-bottom: 10px;
+}
+
+.cart-items button, .total-amount button {
+  margin-top: 20px;
+}
+
+.product-list button {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.product-list button:hover {
+  background-color: #0056b3;
+}
+
+.product-list button:active {
+  background-color: #003d7a;
+}
+
+.product-list button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.product-list ul li button {
+  padding: 5px 10px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007BFF;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.product-list ul li button:hover {
+  background-color: #0056b3;
+}
+
+.product-list ul li button:active {
+  background-color: #003d7a;
+}
+
+.product-list ul li button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.product-list ul li a {
+  text-decoration: none;
+  color: #007BFF;
+  margin: 5px;
+  padding: 5px 10px;
+  border: 1px solid #007BFF;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.product-list ul li a:hover {
+  background-color: #007BFF;
+  color: #fff;
+}
