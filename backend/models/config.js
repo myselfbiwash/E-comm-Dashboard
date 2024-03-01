@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
-mongoose.connect("mongodb+srv://biwash10:biwash20@cluster0.m1wcyog.mongodb.net/EcomDashboard")
+MONG0_URI = process.env.MONG0_URI;
+
+mongoose.connect(MONG0_URI)
     .then(() => console.log('Connected to MongoDB'))
     .catch((error) => console.log('Failed to connect to MongoDB:', error));
